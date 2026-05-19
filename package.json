@@ -1,0 +1,25 @@
+{
+  "name": "coments__4",
+  "version": "1.0.0",
+  "description": "��#\u0000 \u0000F\u0000u\u0000n\u0000e\u0000r\u0000a\u0000l\u0000 \u0000s\u0000e\u0000r\u0000v\u0000i\u0000c\u0000e\u0000s\u0000\r\u0000 \u0000",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "mongodb": "^7.2.0",
+    "mongoose": "^9.6.2",
+    "nodemailer": "^8.0.7"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
