@@ -95,7 +95,8 @@ app.post("/posts", async (req, res) => {
     });
 
     res.json({
-      status: "success"
+      status: "success",
+      post
     });
 
   } catch (err) {
@@ -132,8 +133,7 @@ app.post("/send", async (req, res) => {
     });
 
    res.json({
-  status: "success",
-  post
+  status: "success"
 });
 
   } catch (err) {
