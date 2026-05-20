@@ -131,9 +131,10 @@ app.post("/send", async (req, res) => {
       `
     });
 
-    res.json({
-      status: "success"
-    });
+   res.json({
+  status: "success",
+  post
+});
 
   } catch (err) {
 
