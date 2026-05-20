@@ -80,19 +80,19 @@ app.post("/posts", async (req, res) => {
 
     await post.save();
 
-    await transporter.sendMail({
-      from: process.env.EMAIL_USER,
-      to: process.env.EMAIL_USER_TO,
-      subject: "Новий відгук",
-      html: `
-        <h2>Новий коментар</h2>
+    // await transporter.sendMail({
+    //   from: process.env.EMAIL_USER,
+    //   to: process.env.EMAIL_USER_TO,
+    //   subject: "Новий відгук",
+    //   html: `
+    //     <h2>Новий коментар</h2>
 
-        <p><b>Ім'я:</b> ${username}</p>
-        <p><b>Email:</b> ${email}</p>
-        <p><b>Телефон:</b> ${phone}</p>
-        <p><b>Коментар:</b> ${comment}</p>
-      `
-    });
+    //     <p><b>Ім'я:</b> ${username}</p>
+    //     <p><b>Email:</b> ${email}</p>
+    //     <p><b>Телефон:</b> ${phone}</p>
+    //     <p><b>Коментар:</b> ${comment}</p>
+    //   `
+    // });
 
     res.json({
       status: "success",
