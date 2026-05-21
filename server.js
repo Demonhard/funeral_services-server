@@ -37,13 +37,19 @@ const Post = mongoose.model("Post", {
 // ======================
 
 const transporter = nodemailer.createTransport({
+
   host: "smtp-relay.brevo.com",
-  port: 587,
-  secure: false,
+
+  port: 465,
+
+  secure: true,
+
   auth: {
     user: process.env.BREVO_LOGIN,
     pass: process.env.BREVO_KEY
-  }
+  },
+
+  connectionTimeout: 10000
 });
 
 transporter.verify((error, success) => {
@@ -94,7 +100,7 @@ app.post("/posts", async (req, res) => {
     await post.save();
 
     await transporter.sendMail({
-      from: "Skorbota <mutro2003@gmail.com>",
+      from: '"Skorbota" <noreply@skorbota-ritual.com.ua>',
       to: process.env.EMAIL_USER_TO,
       subject: "Новий відгук",
       html: `
