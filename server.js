@@ -109,7 +109,11 @@ app.post("/posts", async (req, res) => {
 
     res.json({
       status: "success",
-      post
+      post: {
+        username: post.username,
+        email: post.email,
+        comment: post.comment
+      }
     });
 
   } catch (err) {
