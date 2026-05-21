@@ -44,6 +44,14 @@ const transporter = nodemailer.createTransport({
   }
 });
 
+transporter.verify((error, success) => {
+  if (error) {
+    console.log("SMTP ERROR:", error);
+  } else {
+    console.log("SMTP READY");
+  }
+});
+
 // ======================
 // GET posts
 // ======================
@@ -62,6 +70,9 @@ app.get("/posts", async (req, res) => {
 // ======================
 
 app.post("/posts", async (req, res) => {
+
+  console.log(req.body);
+
   try {
     const { username, email, comment, phone } = req.body;
 
@@ -80,19 +91,21 @@ app.post("/posts", async (req, res) => {
 
     await post.save();
 
-    // await transporter.sendMail({
-    //   from: process.env.EMAIL_USER,
-    //   to: process.env.EMAIL_USER_TO,
-    //   subject: "Новий відгук",
-    //   html: `
-    //     <h2>Новий коментар</h2>
+    await transporter.sendMail({
+      from: process.env.EMAIL_USER,
+      to: process.env.EMAIL_USER_TO,
+      subject: "Новий відгук",
+      html: `
+        <h2>Новий коментар</h2>
 
-    //     <p><b>Ім'я:</b> ${username}</p>
-    //     <p><b>Email:</b> ${email}</p>
-    //     <p><b>Телефон:</b> ${phone}</p>
-    //     <p><b>Коментар:</b> ${comment}</p>
-    //   `
-    // });
+        <p><b>Ім'я:</b> ${username}</p>
+        <p><b>Email:</b> ${email}</p>
+        <p><b>Телефон:</b> ${phone}</p>
+        <p><b>Коментар:</b> ${comment}</p>
+      `
+    });
+
+    console.log("EMAIL SENT");
 
     res.json({
       status: "success",
@@ -114,6 +127,8 @@ app.post("/posts", async (req, res) => {
 
 app.post("/send", async (req, res) => {
 
+  console.log(req.body);
+
   try {
 
     const { name, email, phone, product } = req.body;
@@ -131,6 +146,8 @@ app.post("/send", async (req, res) => {
         <p><b>Товар:</b> ${product}</p>
       `
     });
+
+    console.log("EMAIL SENT");
 
    res.json({
   status: "success"
