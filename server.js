@@ -94,7 +94,7 @@ app.post("/posts", async (req, res) => {
     await post.save();
 
     await transporter.sendMail({
-      from: process.env.BREVO_LOGIN,
+      from: "Skorbota <noreply@skorbota-ritual.com.ua>",
       to: process.env.EMAIL_USER_TO,
       subject: "Новий відгук",
       html: `
@@ -140,7 +140,7 @@ app.post("/send", async (req, res) => {
     const { name, email, phone, product } = req.body;
 
     await transporter.sendMail({
-      from: process.env.BREVO_LOGIN,
+      from: "Skorbota <noreply@skorbota-ritual.com.ua>",
       to: process.env.EMAIL_USER_TO,
       subject: "Нове замовлення",
       html: `
