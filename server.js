@@ -41,8 +41,8 @@ const transporter = nodemailer.createTransport({
   port: 587,
   secure: false,
   auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS
+    user: process.env.BREVO_LOGIN,
+    pass: process.env.BREVO_KEY
   }
 });
 
@@ -94,7 +94,7 @@ app.post("/posts", async (req, res) => {
     await post.save();
 
     await transporter.sendMail({
-      from: process.env.EMAIL_USER,
+      from: process.env.BREVO_LOGIN,
       to: process.env.EMAIL_USER_TO,
       subject: "Новий відгук",
       html: `
@@ -140,7 +140,7 @@ app.post("/send", async (req, res) => {
     const { name, email, phone, product } = req.body;
 
     await transporter.sendMail({
-      from: process.env.EMAIL_USER,
+      from: process.env.BREVO_LOGIN,
       to: process.env.EMAIL_USER_TO,
       subject: "Нове замовлення",
       html: `
