@@ -2,8 +2,10 @@ require("dotenv").config();
 
 const express = require("express");
 const mongoose = require("mongoose");
-const nodemailer = require("nodemailer");
 const cors = require("cors");
+const { Resend } = require('resend');
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 const app = express();
 
@@ -36,23 +38,6 @@ const Post = mongoose.model("Post", {
 // Mail transporter
 // ======================
 
-const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST,
-  port: 587,
-  secure: false,
-  requireTLS: true,
-
-  auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS
-  },
-
-  tls: {
-    rejectUnauthorized: false
-  },
-
-  connectionTimeout: 10000
-});
 
 transporter.verify((error, success) => {
   if (error) {
@@ -101,19 +86,19 @@ app.post("/posts", async (req, res) => {
 
     await post.save();
 
-    await transporter.sendMail({
-      from: `Skorbota <${process.env.SMTP_USER}>`,
-      to: process.env.EMAIL_USER_TO,
-      subject: "Новий відгук",
-      html: `
-        <h2>Новий коментар</h2>
+   await resend.emails.send({
+  from: 'onboarding@resend.dev',
+  to: process.env.EMAIL_USER_TO,
+  subject: 'Новий відгук',
+  html: `
+    <h2>Новий відгук</h2>
 
-        <p><b>Ім'я:</b> ${username}</p>
-        <p><b>Email:</b> ${email}</p>
-        <p><b>Телефон:</b> ${phone}</p>
-        <p><b>Коментар:</b> ${comment}</p>
-      `
-    });
+    <p><b>Ім'я:</b> ${username}</p>
+    <p><b>Email:</b> ${email}</p>
+    <p><b>Телефон:</b> ${phone}</p>
+    <p><b>Товар:</b> ${product}</p>
+  `
+});
 
     console.log("EMAIL SENT");
 
@@ -147,19 +132,19 @@ app.post("/send", async (req, res) => {
 
     const { name, email, phone, product } = req.body;
 
-    await transporter.sendMail({
-      from: `Skorbota <${process.env.SMTP_USER}>`,
-      to: process.env.EMAIL_USER_TO,
-      subject: "Нове замовлення",
-      html: `
-        <h2>Нове замовлення</h2>
+   await resend.emails.send({
+    from: 'onboarding@resend.dev',
+    to: process.env.EMAIL_USER_TO,
+    subject: 'Нове замовлення',
+    html: `
+      <h2>Нове замовлення</h2>
 
-        <p><b>Ім'я:</b> ${name}</p>
-        <p><b>Email:</b> ${email}</p>
-        <p><b>Телефон:</b> ${phone}</p>
-        <p><b>Товар:</b> ${product}</p>
-      `
-    });
+      <p><b>Ім'я:</b> ${name}</p>
+      <p><b>Email:</b> ${email}</p>
+      <p><b>Телефон:</b> ${phone}</p>
+      <p><b>Товар:</b> ${product}</p>
+    `
+});
 
     console.log("EMAIL SENT");
 
