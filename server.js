@@ -34,18 +34,7 @@ const Post = mongoose.model("Post", {
   phone: String,
 });
 
-// ======================
-// Mail transporter
-// ======================
 
-
-transporter.verify((error, success) => {
-  if (error) {
-    console.log("SMTP ERROR:", error);
-  } else {
-    console.log("SMTP READY");
-  }
-});
 
 // ======================
 // GET posts
@@ -96,7 +85,7 @@ app.post("/posts", async (req, res) => {
     <p><b>Ім'я:</b> ${username}</p>
     <p><b>Email:</b> ${email}</p>
     <p><b>Телефон:</b> ${phone}</p>
-    <p><b>Товар:</b> ${product}</p>
+    <p><b>Товар:</b> ${comment}</p>
   `
 });
 
