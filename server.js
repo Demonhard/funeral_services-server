@@ -76,7 +76,7 @@ app.post("/posts", async (req, res) => {
     await post.save();
 
    await resend.emails.send({
-  from: 'onboarding@resend.dev',
+  from: 'Skorbota <info@skorbota-ritual.com.ua>',
   to: process.env.EMAIL_USER_TO,
   subject: 'Новий відгук',
   html: `
@@ -122,7 +122,7 @@ app.post("/send", async (req, res) => {
     const { name, email, phone, product } = req.body;
 
    await resend.emails.send({
-    from: 'onboarding@resend.dev',
+    from: 'Skorbota <info@skorbota-ritual.com.ua>',
     to: process.env.EMAIL_USER_TO,
     subject: 'Нове замовлення',
     html: `
